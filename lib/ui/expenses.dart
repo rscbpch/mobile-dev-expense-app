@@ -45,6 +45,30 @@ class _ExpensesState extends State<Expenses> {
     });
   }
 
+  void _removeExpense(Expense expense) {
+    final index = _expenses.indexOf(expense);
+    setState(() {
+      _expenses.remove(expense);
+    });
+
+    // Show SnackBar with undo
+    ScaffoldMessenger.of(context).clearSnackBars(); // remove previous snackbars
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('${expense.title} removed'),
+        action: SnackBarAction(
+          label: 'UNDO',
+          onPressed: () {
+            setState(() {
+              _expenses.insert(index, expense);
+            });
+          },
+        ),
+        duration: const Duration(seconds: 3),
+      ),
+    );
+  }
+
   void _openAddExpenseModal(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -77,11 +101,7 @@ class _ExpensesState extends State<Expenses> {
             Expanded(
               child: ExpenseList(
                 expenses: _expenses,
-                onRemove: (expense) {
-                  setState(() {
-                    _expenses.remove(expense);
-                  });
-                },
+                onRemove: _removeExpense, 
               ),
             ),
           ],
