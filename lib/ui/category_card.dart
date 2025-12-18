@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:expense_app/models/expense.dart';
 
-/// SINGLE CATEGORY CARD (NO BORDER)
 class CategoryCard extends StatelessWidget {
   final ExpenseType category;
   final double total;
@@ -68,8 +67,8 @@ class CategoryCardRow extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.grey.shade200,      // background color
-        borderRadius: BorderRadius.circular(16), // rounded corners
+        color: Colors.grey.shade200,      
+        borderRadius: BorderRadius.circular(16), 
       ),
       child: Row(
         children: ExpenseType.values.map((type) {
